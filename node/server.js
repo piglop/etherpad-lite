@@ -289,7 +289,7 @@ async.waterfall([
     var apiLogger = log4js.getLogger("API");
     
     //This is a api call, collect all post informations and pass it to the apiHandler
-    app.get('/api/1/:func', function(req, res)
+    apiCallback = function(req, res)
     {
       res.header("Server", serverName);
       res.header("Content-Type", "application/json; charset=utf-8");
@@ -312,7 +312,10 @@ async.waterfall([
       
       //call the api handler
       apiHandler.handle(req.params.func, req.query, req, res);
-    });
+    }
+    
+    app.get('/api/1/:func', apiCallback);
+    app.post('/api/1/:func', apiCallback);
     
     //The Etherpad client side sends information about how a disconnect happen
     app.post('/ep/pad/connection-diagnostic-info', function(req, res)
