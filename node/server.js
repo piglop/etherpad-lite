@@ -105,7 +105,6 @@ async.waterfall([
     app.error(function(err, req, res, next){
       res.send(500);
       console.error(err.stack ? err.stack : err.toString());
-      gracefulShutdown();
     });
     
     //serve static files
